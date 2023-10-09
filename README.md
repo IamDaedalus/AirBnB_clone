@@ -12,11 +12,11 @@ This console is our initial step in creating a full-stack web application. At it
 This console serves as the foundation, where HTML/CSS templating, database storage, API, and the front-end interface will merge seamlessly. It’s a debugging tool, our code testing ground, and our data model creator.  
 ## Concepts Employed in this Project:  
 - [Packages](https://docs.python.org/3.4/tutorial/modules.html#packages) - **Managing Modules as Packages:** Organize custom modules as Python packages.  
-- [Cmd Module](https://docs.python.org/3.8/library/cmd.html#module-cmd) - **Line-Oriented Command Interpreters:** Leveraging the Cmd Module for efficient command handling.  
-- [UUID Module](https://docs.python.org/3.8/library/uuid.html#module-uuid) - **Generating Random IDs:** Utilizing the Universal Unique Identifier (UUID) module for generating random IDs.  
+- [Cmd Module](https://docs.python.org/3.8/library/cmd.html#module-cmd) - Leveraging the Cmd Module for efficient command handling.  
+- [UUID Module](https://docs.python.org/3.8/library/uuid.html#module-uuid) - Utilized the Universal Unique Identifier (UUID) module for generating random IDs.  
 - [Args and Kwargs](https://www.scaler.com/topics/python/args-and-kwargs-in-python/) - **Flexible Argument Handling:** Mastering `*args` and `**kwargs` for versatile argument handling.  
-- [JSON](https://docs.python.org/3/library/json.html#module-json) - **Serialization & Deserialization:** Converting objects to byte streams and reconstructing them using serialization and deserialization.  
-- [Datetime Module](https://docs.python.org/3.8/library/datetime.html#module-datetime) - **Date and Time Implementation:** Employing the Datetime module for effective date and time handling.
+- [JSON](https://docs.python.org/3/library/json.html#module-json) - Converting objects to byte streams and reconstructing them using serialization and deserialization.  
+- [Datetime Module](https://docs.python.org/3.8/library/datetime.html#module-datetime) - Employed the Datetime module for effective date and time handling.
 - [Unit Test](https://realpython.com/python-testing/) - Test Driven Devolopment.
 ## How This Console App Works  
 ### Interactively ⤵️
