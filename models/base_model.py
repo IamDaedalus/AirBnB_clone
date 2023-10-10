@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 """
 This module contains the BaseModel class that all other classses
 will inherit common attributes and methods from
@@ -25,13 +23,13 @@ class BaseModel:
         Keep everything private to control access rights just
         like we did in Almost A Circle
         """
-        self._id = "{}".format(uuid4())
-        self._created_at = datetime.now()
+        self.__id = "{}".format(uuid4())
+        self.__created_at = datetime.now()
         # updated_at is datetime.now() because that was when
         # it was last updated
-        self._updated_at = datetime.now()
-        self._name = ""
-        self._my_number = 0
+        self.__updated_at = datetime.now()
+        self.__name = ""
+        self.__my_number = 0
 
     def save(self):
         """
@@ -93,7 +91,7 @@ class BaseModel:
         """
         This property returns the unique ID of the instance
         """
-        return self._id
+        return self.__id
 
     @property
     def name(self):
@@ -103,7 +101,7 @@ class BaseModel:
         Return:
             returns the number stored for the instance
         """
-        return self._name
+        return self.__name
 
     @name.setter
     def name(self, value):
@@ -114,7 +112,7 @@ class BaseModel:
         Args:
             value: the new value to store for the name
         """
-        self._name = self._validate_value("name", value, str)
+        self.__name = self._validate_value("name", value, str)
 
     @property
     def my_number(self):
@@ -124,7 +122,7 @@ class BaseModel:
         Return:
             returns the number stored for the instance
         """
-        return self._my_number
+        return self.__my_number
 
     @my_number.setter
     def my_number(self, value):
@@ -135,7 +133,7 @@ class BaseModel:
         Args:
             value: the new value to store
         """
-        self._my_number = self._validate_value("my_number", value, int)
+        self.__my_number = self._validate_value("my_number", value, int)
 
     @property
     def created_at(self):
@@ -145,7 +143,7 @@ class BaseModel:
         Return:
             returns the datetime the instance was first created
         """
-        return self._created_at
+        return self.__created_at
 
     @property
     def updated_at(self):
@@ -155,7 +153,7 @@ class BaseModel:
         Return:
             returns the date the instance was updated at
         """
-        return self._updated_at
+        return self.__updated_at
 
     @updated_at.setter
     def updated_at(self, value):
@@ -165,4 +163,4 @@ class BaseModel:
         Args:
             value: the value we are assigning the updated_at to
         """
-        self._updated_at = self._validate_value("updated_at", value, datetime)
+        self.__updated_at = self._validate_value("updated_at", value, datetime)
