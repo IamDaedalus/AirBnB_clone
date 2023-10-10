@@ -19,8 +19,8 @@ class BaseModel:
             for keys, value in kwargs.items():
                 if "created_at" in keys or "updated_at" in keys:
                     # convert its value (previously a str) to datetime object
-                    datetime_obj = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
-                    setattr(self, keys, datetime_obj)
+                    dt_time = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                    setattr(self, keys, dt_time)
                 else:
                     setattr(self, keys, value)
         else:
@@ -33,7 +33,7 @@ class BaseModel:
         This method updates the 'updated_at' attribute to the
         current datetime or the current time and date
         """
-        self.updated_at = datetime.now() # when it was last updated
+        self.updated_at = datetime.now()  # when it was last updated
 
     def to_dict(self):
         """
@@ -41,9 +41,8 @@ class BaseModel:
         class for use in serialization to json objects
         """
         my_dict = {}
-        # simply iterate through the dictionary and extract the
-        # datetime to convert to isoformat
         my_dict["__class__"] = "{}".format(type(self).__name__)
+        # iterate, extract & convert datetime values to a str in ISO format
         for key, value in self.__dict__.items():
             if isinstance(value, datetime):
                 my_dict[key] = value.isoformat()
