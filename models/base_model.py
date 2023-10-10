@@ -23,13 +23,11 @@ class BaseModel:
         Keep everything private to control access rights just
         like we did in Almost A Circle
         """
-        self.__id = "{}".format(uuid4())
+        self.id = "{}".format(uuid4())
         self.__created_at = datetime.now()
         # updated_at is datetime.now() because that was when
         # it was last updated
         self.__updated_at = datetime.now()
-        self.__name = ""
-        self.__my_number = 0
 
     def save(self):
         """
@@ -47,9 +45,9 @@ class BaseModel:
                 "my_number": self.my_number,
                 "name": self.name,
                 "__class__": type(self).__name__,
-                "updated_at": self.updated_at.isoformat(),
+                "updated_at": self.updated_at,
                 "id": self.id,
-                "created_at": self.created_at.isoformat()
+                "created_at": self.created_at
         }
 
     def _validate_value(self, name, value, Type):
@@ -86,13 +84,6 @@ class BaseModel:
     # PUBLIC PROPERTIES STORED HERE
     # USEFUL FOR KEEPING ACCESS TO PRIVATE ATTRIUTES CLEAN
     # AND NICE
-    @property
-    def id(self):
-        """
-        This property returns the unique ID of the instance
-        """
-        return self.__id
-
     @property
     def name(self):
         """
@@ -143,7 +134,7 @@ class BaseModel:
         Return:
             returns the datetime the instance was first created
         """
-        return self.__created_at
+        return self.__created_at.isoformat()
 
     @property
     def updated_at(self):
@@ -153,7 +144,7 @@ class BaseModel:
         Return:
             returns the date the instance was updated at
         """
-        return self.__updated_at
+        return self.__updated_at.isoformat()
 
     @updated_at.setter
     def updated_at(self, value):
