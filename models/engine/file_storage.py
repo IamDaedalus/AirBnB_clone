@@ -37,16 +37,21 @@ class FileStorage:
                 dictionary
         """
         key_name = "{}.{}".format(type(obj).__name__, obj.id)
-        FileStorage.__objects[key_name] = obj.to_dict()
+        FileStorage.__objects[key_name] = obj
 
     def save(self):
         """
         Write the new object to the file that stores all the dictionary
         entries as a way to save items and persistency
         """
+        # FIX:  Noticed you were doing the conversion here in save so I
+        #       my code to reflect that. Interesting approach there (y)
+        my_dict = {}
         with open(FileStorage.__file_path, "w", encoding="utf8") as file:
-            # had troubles with json.dump and opted for dumps
-            file.write(json.dumps(FileStorage.__objects))
+            for key, _ in FileStorage.__objects.items():
+                my_dict[key] = FileStorage.__objects[key].to_dict()
+            json.dump(my_dict, file)
+
 
     def reload(self):
         """
@@ -56,11 +61,18 @@ class FileStorage:
 
         If the file doesn't exist, no errors or exceptions are raised
         """
+        # TODO: FIND A BETTER WAY OF ORGANISING THIS
+        from models.base_model import BaseModel
+
+        # Store a key-pair value of each class and its string name
+        cls_map = {
+                "BaseModel" : BaseModel,
+            }
+
         if os.path.exists(FileStorage.__file_path):
             with open(FileStorage.__file_path, "r") as file:
-                # read the contents of the file and pass it to json.loads
-                # thing is will this be a permanent solution?
-                data = file.read()
-                FileStorage.__objects = json.loads(data)
-        else:
-            return
+                data = json.load(file)
+                for objs in data.values():
+                    cls_key = objs["__class__"]
+                    cls_name = cls_map[cls_key]
+                    self.new(cls_name(**objs))

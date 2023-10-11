@@ -53,7 +53,7 @@ class BaseModel:
                 my_dict[key] = value.isoformat()
             else:
                 my_dict[key] = value
-        return my_dict
+        return dict(my_dict)
 
     def _validate_value(self, name, value, Type):
         """
@@ -78,6 +78,6 @@ class BaseModel:
         This returns a string representation of the class and its
         attributes. Helpful for debugging and such
         """
-        return "[{:s}] ({:s}) {}".format(
-            type(self).__name__, self.id, self.__dict__
+        return "[{}] ({}) {}".format(
+            type(self).__name__, self.id, self.to_dict()
             )
