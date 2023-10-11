@@ -1,2 +1,4 @@
 # TEST CASES
-* id is a stringV
+* id is a string
+* timestamp values of updated_at and created_at are string in to_dict method BUT
+* are datetime objs inside the Basemodel (we can also test for the exact string format of these datetime)

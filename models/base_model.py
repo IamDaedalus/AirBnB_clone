@@ -8,30 +8,32 @@ from datetime import datetime
 
 
 class BaseModel:
+    """ Defines a class Basemodel from which its subclasses will
+    inherit from. This is the ADAM class
     """
-    This is the base class for all other classes in the coming
-    tasks. It is going to be the class from which every other
-    class inherits from. This is the ADAM class
-    """
+    def __init__(self, *args, **kwargs):
+        """ Initialises all public instances attributes for the programm """
 
-    def __init__(self):
-        """
-        This is the constructor for the BaseModel class where
-        we initialise some public instance attributes for use
-        throughout the program
-        """
-        self.id = "{}".format(uuid4())
-        self.created_at = datetime.now()
-        # updated_at is datetime.now() because that was when
-        # it was last updated
-        self.updated_at = datetime.now()
+        if kwargs:
+            del kwargs["__class__"]
+            for keys, value in kwargs.items():
+                if "created_at" in keys or "updated_at" in keys:
+                    # convert its value (previously a str) to datetime object
+                    dt_time = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                    setattr(self, keys, dt_time)
+                else:
+                    setattr(self, keys, value)
+        else:
+            self.id = "{}".format(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def save(self):
         """
         This method updates the 'updated_at' attribute to the
         current datetime or the current time and date
         """
-        self.updated_at = datetime.now()
+        self.updated_at = datetime.now()  # when it was last updated
 
     def to_dict(self):
         """
@@ -39,10 +41,8 @@ class BaseModel:
         class for use in serialization to json objects
         """
         my_dict = {}
-
-        # simply iterate through the dictionary and extract the
-        # datetime to convert to isoformat
         my_dict["__class__"] = "{}".format(type(self).__name__)
+        # iterate, extract & convert datetime values to a str in ISO format
         for key, value in self.__dict__.items():
             if isinstance(value, datetime):
                 my_dict[key] = value.isoformat()
@@ -52,20 +52,16 @@ class BaseModel:
 
     def _validate_value(self, name, value, Type):
         """
-        This helper method will check to make sure that the user
-        is assigning the right data type to the right variable or
-        field. This method should help clean up our codebase by
-        doing all the manual heavy lifting
-
+        Validates that the given value matches the expected data type.
         Args:
-            name: the name of the value eg. name, my_number etc
-            value: the value we are validating eg. 5, "my name" etc
-            Type: this is the expected type of the value to validate
+            name (str): The name of the variable or field.
+            value: The value to be validated.
+            expected_type (type): The expected data type of the value.
 
-        Return:
-            returns the value if it passes all checks and is validated
-            correctly otherwise it will raise an appropriate error that
-            the tests can catch
+        Returns:
+            The validated value if it matches the expected type.
+        Raises:
+            TypeError: If the value does not match the expected type.
         """
         if not type(value) is Type:
             raise TypeError("{} must be of type {}".format(name, Type))
