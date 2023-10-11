@@ -7,6 +7,7 @@ will inherit common attributes and methods from
 
 from uuid import uuid4
 from datetime import datetime
+from models import storage
 
 
 class BaseModel:
@@ -29,6 +30,7 @@ class BaseModel:
             self.id = "{}".format(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            storage.new(self)
 
     def save(self):
         """
@@ -36,6 +38,7 @@ class BaseModel:
         current datetime or the current time and date
         """
         self.updated_at = datetime.now()  # when it was last updated
+        storage.save()
 
     def to_dict(self):
         """
