@@ -16,7 +16,7 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_quit(self, args):
-        """ Exits the Program
+        """ Quit command to exit the program
         """
         return True
 
