@@ -41,7 +41,7 @@ class HBNBCommand(cmd.Cmd):
                 print(new_instance.id)
             else:
                 print("** class doesn't exist **")
-            # TODO: are spaces handled as missing or non-existing arg
+            # TODO: are spaces handled as missing or non-existing argument?
 
 
 if __name__ == '__main__':
