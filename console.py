@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ This is a command interpreter we can use to
-manipulate the ojects of our web application
+manipulate the ojects of our web application.
 """
 import cmd
 from models.base_model import BaseModel
