@@ -62,7 +62,7 @@ ubuntu@elgibbo~$
 * `models/base_model.py` file is the base class of all our models. It contains common elements:
     * __attributes__: `id`, `created_at` and `updated_at`
     * __methods__: `save()` and `to_json()`
-* `models/engine` directory contain all storage classes (using the same prototype). For the moment we have only one: `file_storage.py`.  
+* `models/engine` directory contain all storage classes (using the same prototype). For the moment we have only one: `file_storage.py`.
 ## Authors: 🧠
-Manny Quansah (IamDeadalus) - [Github](https://github.com/IamDaedalus?tab=repositories) | [Twitter](https://twitter.com/daedalus_here)
+Manny Quansah (IamDeadalus) - [Github](https://github.com/IamDaedalus?tab=repositories) | [Twitter](https://twitter.com/daedalus_here)  
 Chiagoziem El-gibbor - [Twitter](https://twitter.com/Chi_Elgibbor) | [LinkedIn](https://www.linkedin.com/in/elgibbor/) | [Blog](https://hashnode.com/@Elgibbor)
