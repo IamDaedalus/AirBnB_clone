@@ -65,4 +65,4 @@ ubuntu@elgibbo~$
 * `models/engine` directory contain all storage classes (using the same prototype). For the moment we have only one: `file_storage.py`.
 ## Authors: 🧠
 Manny Quansah (IamDeadalus) - [Github](https://github.com/IamDaedalus?tab=repositories) | [Twitter](https://twitter.com/daedalus_here)
-Chiagoziem El-gibbor - [Twitter](https://twitter.com/Chi_Elgibbor) | [LinkedIn](https://www.linkedin.com/in/elgibbor/) | [Blog](https://hashnode.com/@Elgibbor)
+Chiagoziem El-gibbor - [Twitter](https://twitter.com/Chi_Elgibbor) | [LinkedIn](https://www.linkedin.com/in/elgibbor/) | [Blog](https://hashnode.com/@Elgibbor)  
