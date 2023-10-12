@@ -7,7 +7,7 @@ This console is our initial step in creating a full-stack web application. At it
 - **Interactive Management**: Create objects, update, destroy, and more, all within the console.
 - **Persistent Storage:** Store and persist objects seamlessly to a JSON file.
 - **Seamless Abstraction:** Implemented a storage engine that abstracts complexities. You focus on your objects, not storage intricacies!
-    - _With this storage system, one won’t worry about the nitty-gritty details of object storage. Whether you're coding in the console, crafting the front-end, or building the RestAPI, the storage abstraction ensures consistency and flexibility. Storage type can be easily switched without rewriting the entire codebase._
+    - With this storage system, one won’t worry about the nitty-gritty details of object storage. Whether you're coding in the console, crafting the front-end, or building the RestAPI, the storage abstraction ensures consistency and flexibility. Storage type can be easily switched without rewriting the entire codebase.
 ## Why it Matters: 💥
 This console serves as the foundation, where HTML/CSS templating, database storage, API, and the front-end interface will merge seamlessly. It’s a debugging tool, our code testing ground, and our data model creator.
 ## Concepts Employed in this Project:
@@ -64,5 +64,5 @@ ubuntu@elgibbo~$
     * __methods__: `save()` and `to_json()`
 * `models/engine` directory contain all storage classes (using the same prototype). For the moment we have only one: `file_storage.py`.
 ## Authors: 🧠
-Manny Quansah (IamDeadalus) - [Github](https://github.com/IamDaedalus?tab=repositories) | [Twitter](https://twitter.com/daedalus_here)  
+Manny Quansah (IamDeadalus) - [Github](https://github.com/IamDaedalus?tab=repositories) | [Twitter](https://twitter.com/daedalus_here)
 Chiagoziem El-gibbor - [Twitter](https://twitter.com/Chi_Elgibbor) | [LinkedIn](https://www.linkedin.com/in/elgibbor/) | [Blog](https://hashnode.com/@Elgibbor)
