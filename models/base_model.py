@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 """
 This module contains the BaseModel class that all other classses
 will inherit common attributes and methods from
@@ -5,6 +7,7 @@ will inherit common attributes and methods from
 
 from uuid import uuid4
 from datetime import datetime
+from models import storage
 
 
 class BaseModel:
@@ -27,6 +30,7 @@ class BaseModel:
             self.id = "{}".format(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            storage.new(self)
 
     def save(self):
         """
@@ -34,6 +38,7 @@ class BaseModel:
         current datetime or the current time and date
         """
         self.updated_at = datetime.now()  # when it was last updated
+        storage.save()
 
     def to_dict(self):
         """
@@ -48,7 +53,7 @@ class BaseModel:
                 my_dict[key] = value.isoformat()
             else:
                 my_dict[key] = value
-        return my_dict
+        return dict(my_dict)
 
     def _validate_value(self, name, value, Type):
         """
@@ -73,6 +78,6 @@ class BaseModel:
         This returns a string representation of the class and its
         attributes. Helpful for debugging and such
         """
-        return "[{:s}] ({:s}) {}".format(
-            type(self).__name__, self.id, self.__dict__
+        return "[{}] ({}) {}".format(
+            type(self).__name__, self.id, self.to_dict()
             )

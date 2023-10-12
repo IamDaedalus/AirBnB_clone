@@ -1,3 +1,6 @@
+# REFACTORING
+* find a better way to reorganise the classes key-pair values in reload()
+
 # TEST CASES
 * id is a string
 * timestamp values of updated_at and created_at are string in to_dict method BUT
