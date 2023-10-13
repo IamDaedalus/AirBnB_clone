@@ -52,6 +52,18 @@ class FileStorage:
                 my_dict[key] = FileStorage.__objects[key].to_dict()
             json.dump(my_dict, file)
 
+    def class_map(self):
+        """
+        Returns a dictionary that contains a map of class names and
+        their respective classes
+        """
+        from models.base_model import BaseModel
+
+        cls_map = {
+                "BaseModel": BaseModel
+        }
+
+        return cls_map
 
     def reload(self):
         """
@@ -61,18 +73,10 @@ class FileStorage:
 
         If the file doesn't exist, no errors or exceptions are raised
         """
-        # TODO: FIND A BETTER WAY OF ORGANISING THIS
-        from models.base_model import BaseModel
-
-        # Store a key-pair value of each class and its string name
-        cls_map = {
-                "BaseModel" : BaseModel,
-            }
-
         if os.path.exists(FileStorage.__file_path):
             with open(FileStorage.__file_path, "r") as file:
                 data = json.load(file)
                 for objs in data.values():
                     cls_key = objs["__class__"]
-                    cls_name = cls_map[cls_key]
+                    cls_name = self.class_map()[cls_key]
                     self.new(cls_name(**objs))

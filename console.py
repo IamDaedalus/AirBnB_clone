@@ -4,12 +4,17 @@ manipulate the ojects of our web application.
 """
 import cmd
 from models.base_model import BaseModel
+from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
     """ Defines a class which is the entry point of our command interpreter."""
 
     prompt = "(hbnb) "
+    missing_class = "** class name missing **"
+    unknown_class = "** class doesn't exist **"
+    missing_id = "** instance id missing **"
+    unknown_id = "** no instance found **"
 
     def emptyline(self):
         """ overides default emptyline execution """
@@ -27,19 +32,13 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_create(self, args):
-        """ Creates a new instance of the class specified, saves
-        it to the file and prints the new instance's id
-        """
-        class_name = ""
-        commands = args.split(" ")
-        if not commands[0]:
-            print("** class name missing **")
+        """ Create new class instance, save and display its id"""
+        # need better help documentation
+        if args == "" or args is None:
+            print(self.missing_class)
         else:
-            # extract the text between string quotes
-            if '"' in commands[0] or '\'' in commands[0]:
-                class_name = commands[0][1:-1]
-            else:
-                class_name = commands[0]
+            commands = args.split(" ")
+            class_name = self.extract_arg(commands[0])
             # TODO: we'll probably have to make this check dynamic
             #       just like we did in FileStorage.reload()
             if class_name == "BaseModel":
@@ -50,8 +49,29 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
             # TODO: are spaces handled as missing or non-existing argument?
 
+    # GOD ABEG
     def do_show(self, args):
-        pass
+        """ Get and print instance str representation by id and class name"""
+        if args == "" or args is None:
+            print(self.missing_class)
+        else:
+            cmds = args.split(" ")
+            cls_name = self.extract_arg(cmds[0])
+            cls_id = self.extract_arg(cmds[1])
+
+            # id arg check
+            if len(cmds) < 2:
+                print(self.missing_id)
+            elif not cls_name in storage.class_map():
+                print(self.unknown_class)
+            else:
+                print("cn {} cid {}".format(cls_name, cls_id))
+                val = "{}.{}".format(cls_name, cls_id)
+
+                if val in storage.all():
+                    print(storage.all()[val])
+                else:
+                    print(self.unknown_id)
 
     def do_destroy(self, args):
         pass
@@ -61,6 +81,30 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, args):
         pass
+
+    # HELPERS
+    def extract_arg(self, arg="", msg=""):
+        """Given a string it returns the string itself or extracts
+        the values of the string in between the quotes
+
+        Example:
+            "hello" returns hello
+            'hello' returns hello
+
+        Args:
+            arg: the argument
+            msg: the message to print if extraction unsuccessful
+        """
+        # extract the text between string quotes
+        # now to match the braces for a correct formatted str
+        # IF WE GET A LOT OF RED CHECKS FOR TASK 7 CONSIDER
+        # REMOVING CALLS TO THIS FUNCTION AND JUST PASSING
+        # THEM STRAIGHT AWAY
+        if '"' in arg or '\'' in arg:
+            return arg[1:-1]
+        else:
+            return arg
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
