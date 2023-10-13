@@ -27,14 +27,21 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_create(self, args):
-        """ creates a new instance, saves it (to the json file)
-        and prints the id
+        """ Creates a new instance of the class specified, saves
+        it to the file and prints the new instance's id
         """
+        class_name = ""
         commands = args.split(" ")
         if not commands[0]:
             print("** class name missing **")
         else:
-            class_name = commands[0]
+            # extract the text between string quotes
+            if '"' in commands[0] or '\'' in commands[0]:
+                class_name = commands[0][1:-1]
+            else:
+                class_name = commands[0]
+            # TODO: we'll probably have to make this check dynamic
+            #       just like we did in FileStorage.reload()
             if class_name == "BaseModel":
                 new_instance = BaseModel()
                 new_instance.save()
@@ -43,6 +50,17 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
             # TODO: are spaces handled as missing or non-existing argument?
 
+    def do_show(self, args):
+        pass
+
+    def do_destroy(self, args):
+        pass
+
+    def do_all(self, args):
+        pass
+
+    def do_update(self, args):
+        pass
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
