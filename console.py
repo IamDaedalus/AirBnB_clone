@@ -38,15 +38,15 @@ class HBNBCommand(cmd.Cmd):
             print(self.missing_class)
         else:
             commands = args.split(" ")
+
             class_name = self.extract_arg(commands[0])
-            # TODO: we'll probably have to make this check dynamic
-            #       just like we did in FileStorage.reload()
-            if class_name == "BaseModel":
-                new_instance = BaseModel()
+            if class_name in storage.class_map():
+                # create a new instance based on the class name
+                new_instance = storage.class_map()[class_name]()
                 new_instance.save()
                 print(new_instance.id)
             else:
-                print("** class doesn't exist **")
+                print(self.unknown_class)
             # TODO: are spaces handled as missing or non-existing argument?
 
     # GOD ABEG
@@ -65,7 +65,6 @@ class HBNBCommand(cmd.Cmd):
             elif not cls_name in storage.class_map():
                 print(self.unknown_class)
             else:
-                print("cn {} cid {}".format(cls_name, cls_id))
                 val = "{}.{}".format(cls_name, cls_id)
 
                 if val in storage.all():
@@ -74,7 +73,26 @@ class HBNBCommand(cmd.Cmd):
                     print(self.unknown_id)
 
     def do_destroy(self, args):
-        pass
+        """ Get and print instance str representation by id and class name"""
+        if args == "" or args is None:
+            print(self.missing_class)
+        else:
+            cmds = args.split(" ")
+            cls_name = self.extract_arg(cmds[0])
+            cls_id = self.extract_arg(cmds[1])
+
+            # id arg check
+            if len(cmds) < 2:
+                print(self.missing_id)
+            elif not cls_name in storage.class_map():
+                print(self.unknown_class)
+            else:
+                val = "{}.{}".format(cls_name, cls_id)
+
+                if val in storage.all():
+                    storage.all().pop(val)
+                else:
+                    print(self.unknown_id)
 
     def do_all(self, args):
         pass
