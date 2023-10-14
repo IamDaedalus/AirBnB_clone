@@ -46,7 +46,7 @@ class BaseModel:
         class for use in serialization to json objects
         """
         my_dict = {}
-        my_dict["__class__"] = "{}".format(type(self).__name__)
+        my_dict["__class__"] = self.__class__.__name__
         # iterate, extract & convert datetime values to a str in ISO format
         for key, value in self.__dict__.items():
             if isinstance(value, datetime):
@@ -55,29 +55,11 @@ class BaseModel:
                 my_dict[key] = value
         return dict(my_dict)
 
-    def _validate_value(self, name, value, Type):
-        """
-        Validates that the given value matches the expected data type.
-        Args:
-            name (str): The name of the variable or field.
-            value: The value to be validated.
-            expected_type (type): The expected data type of the value.
-
-        Returns:
-            The validated value if it matches the expected type.
-        Raises:
-            TypeError: If the value does not match the expected type.
-        """
-        if not type(value) is Type:
-            raise TypeError("{} must be of type {}".format(name, Type))
-
-        return value
-
     def __str__(self):
         """
         This returns a string representation of the class and its
         attributes. Helpful for debugging and such
         """
         return "[{}] ({}) {}".format(
-            type(self).__name__, self.id, self.to_dict()
+            type(self).__name__, self.id, self.__dict__
             )
