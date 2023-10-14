@@ -11,8 +11,10 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = "(hbnb) "
     missing_class = "** class name missing **"
-    unknown_class = "** class doesn't exist **"
     missing_id = "** instance id missing **"
+    missing_attr = "** attribute name missing **"
+    missing_val = "** value missing **"
+    unknown_class = "** class doesn't exist **"
     unknown_id = "** no instance found **"
 
     def emptyline(self):
@@ -56,7 +58,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             cmds = args.split(" ")
             cls_name = self.extract_arg(cmds[0])
-            cls_id = self.extract_arg(cmds[1])
+            # moved cls_id below the else statement
 
             # id arg check
             if len(cmds) < 2:
@@ -64,6 +66,7 @@ class HBNBCommand(cmd.Cmd):
             elif not cls_name in storage.class_map():
                 print(self.unknown_class)
             else:
+                cls_id = self.extract_arg(cmds[1])
                 val = "{}.{}".format(cls_name, cls_id)
 
                 if val in storage.all():
@@ -98,8 +101,10 @@ class HBNBCommand(cmd.Cmd):
         if args == "":
             # default behaviour to print everything in the file.json
             # if no args are passed
+            my_list = []
             for _, values in storage.all().items():
-                print(values)
+                my_list.append(str(values))
+                print(my_list)
         else:
             cmd = self.extract_arg(args.split(" ")[0])
 
@@ -107,12 +112,41 @@ class HBNBCommand(cmd.Cmd):
             if cmd not in storage.class_map():
                 print(self.unknown_class)
             else:
+                my_list = []
                 for _, values in storage.all().items():
                     if type(values).__name__ == cmd:
-                        print(values)
+                        my_list.append(str(values))
+                print(my_list)
 
     def do_update(self, args):
-        pass
+        if args == "" or args is None:
+            print(self.missing_class)
+        else:
+            flags = args.split(" ")
+            update_key = "{}.{}".format(self.extract_arg(flags[0]),\
+                    self.extract_arg(flags[1]))
+            print(update_key)
+
+            #id check
+            if len(flags) < 2:
+                print(self.missing_id)
+            # wrong instance id check
+            elif update_key not in storage.all():
+                print(self.unknown_id)
+            # attribute check
+            elif len(flags) < 3:
+                print(self.missing_attr)
+            # attrribute value check
+            elif len(flags) < 4:
+                print(self.missing_val)
+            # class name validation check
+            elif flags[0] not in storage.class_map():
+                print(self.unknown_class)
+
+            for key, _ in storage.all().items():
+                if update_key == key:
+                    setattr(storage.all()[key], flags[2], flags[3])
+                    storage.all()[key].save()
 
     # HELPERS
     def extract_arg(self, arg="", msg=""):
