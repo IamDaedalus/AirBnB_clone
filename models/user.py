@@ -2,7 +2,7 @@
 """ This module holds the user class implementation, a subclass
 of BaseModel
 """
-from base_model import BaseModel
+from models.base_model import BaseModel
 
 
 class User:
@@ -17,4 +17,3 @@ class User:
     password = ""
     first_name = ""
     last_name = ""
-    
