@@ -1,10 +1,8 @@
 #!/usr/bin/python3
-
 """
 Module that contains class for storage and persistence between
 sessions which is vital for an application such as this
 """
-
 import json
 import os
 
@@ -31,7 +29,6 @@ class FileStorage:
         """
         Create a new dictionary that will most likely be added to the
         __objects dictionary as a whole.
-
         Args:
             obj: the new obj to add which will be converted to a
                 dictionary
@@ -44,12 +41,10 @@ class FileStorage:
         Write the new object to the file that stores all the dictionary
         entries as a way to save items and persistency
         """
-        # FIX:  Noticed you were doing the conversion here in save so I
-        #       my code to reflect that. Interesting approach there (y)
         my_dict = {}
         with open(FileStorage.__file_path, "w", encoding="utf8") as file:
-            for key, _ in FileStorage.__objects.items():
-                my_dict[key] = FileStorage.__objects[key].to_dict()
+            for key, value in FileStorage.__objects.items():
+                my_dict[key] = value.to_dict()
             json.dump(my_dict, file)
 
     def class_map(self):
@@ -57,12 +52,23 @@ class FileStorage:
         Returns a dictionary that contains a map of class names and
         their respective classes
         """
+        from models.user import User
+        from models.city import City
+        from models.place import Place
+        from models.state import State
+        from models.review import Review
+        from models.amenity import Amenity
         from models.base_model import BaseModel
 
         cls_map = {
-                "BaseModel": BaseModel
-        }
 
+                "User": User, "City": City,
+                "Place": Place,
+                "BaseModel": BaseModel,
+                "State": State,
+                "Review": Review,
+                "Amenity": Amenity
+        }
         return cls_map
 
     def reload(self):
