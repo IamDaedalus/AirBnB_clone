@@ -11,8 +11,10 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = "(hbnb) "
     missing_class = "** class name missing **"
-    unknown_class = "** class doesn't exist **"
     missing_id = "** instance id missing **"
+    missing_attr = "** attribute name missing **"
+    missing_val = "** value missing **"
+    unknown_class = "** class doesn't exist **"
     unknown_id = "** no instance found **"
 
     def emptyline(self):
@@ -95,11 +97,12 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, args):
         """ Prints all stored args otherwise prints passed class name"""
+        my_list = []
         if args == "":
             # default behaviour to print everything in the file.json
             # if no args are passed
             for _, values in storage.all().items():
-                print(values)
+                my_list.append(str(values))
         else:
             cmd = self.extract_arg(args.split(" ")[0])
 
@@ -107,12 +110,36 @@ class HBNBCommand(cmd.Cmd):
             if cmd not in storage.class_map():
                 print(self.unknown_class)
             else:
+                my_list = []
                 for _, values in storage.all().items():
                     if type(values).__name__ == cmd:
-                        print(values)
+                        my_list.append(str(values))
+
+        print(my_list)
 
     def do_update(self, args):
-        pass
+        if args == "" or args is None:
+            print(self.missing_class)
+        else:
+            flags = args.split(" ")
+            cls_id = "{}.{}".format(self.extract_arg(args[0]),\
+                    self.extract_arg(args[1]))
+
+            #id check
+            if len(flags) < 2 or cls_id not in storage.all():
+                print(self.missing_id)
+            # attribute check
+            elif len(flags) < 3:
+                print(self.missing_attr)
+            # attrribute value check
+            elif len(flags) < 4:
+                print(self.missing_val)
+            # class name validation check
+            elif flags[0] not in storage.class_map():
+                print(self.unknown_class)
+
+
+
 
     # HELPERS
     def extract_arg(self, arg="", msg=""):
