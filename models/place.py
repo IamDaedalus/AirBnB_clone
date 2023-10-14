@@ -35,8 +35,8 @@ class Place(BaseModel):
         latitude (float): 0.0 by default, representing the latitude coordinate
                         of the place.
 
-        longitude (float): 0.0 by default, representing the longitude coordinate
-                        of the place.
+        longitude (float): 0.0 by default, representing the longitude
+                            coordinate of the place.
 
         amenity_ids (list): Empty list by default, representing the list of
                             Amenity IDs associated with the place.
