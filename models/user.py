@@ -5,7 +5,7 @@ of BaseModel
 from models.base_model import BaseModel
 
 
-class User:
+class User(BaseModel):
     """ a class that defines a new user in the application.
     Args:
         email (str): users email address
