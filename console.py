@@ -3,7 +3,6 @@
 manipulate the ojects of our web application.
 """
 import cmd
-from models.base_model import BaseModel
 from models import storage
 
 
@@ -73,7 +72,7 @@ class HBNBCommand(cmd.Cmd):
                     print(self.unknown_id)
 
     def do_destroy(self, args):
-        """ Get and print instance str representation by id and class name"""
+        """ Removes a saved instance based on class name and id"""
         if args == "" or args is None:
             print(self.missing_class)
         else:
@@ -95,7 +94,22 @@ class HBNBCommand(cmd.Cmd):
                     print(self.unknown_id)
 
     def do_all(self, args):
-        pass
+        """ Prints all stored args otherwise prints passed class name"""
+        if args == "":
+            # default behaviour to print everything in the file.json
+            # if no args are passed
+            for _, values in storage.all().items():
+                print(values)
+        else:
+            cmd = self.extract_arg(args.split(" ")[0])
+
+            # if the cmd doesn't exist don't print it
+            if cmd not in storage.class_map():
+                print(self.unknown_class)
+            else:
+                for _, values in storage.all().items():
+                    if type(values).__name__ == cmd:
+                        print(values)
 
     def do_update(self, args):
         pass
