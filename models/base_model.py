@@ -4,10 +4,10 @@
 This module contains the BaseModel class that all other classses
 will inherit common attributes and methods from
 """
-
+import models
 from uuid import uuid4
 from datetime import datetime
-from models import storage
+# from models import storage
 
 
 class BaseModel:
@@ -20,17 +20,16 @@ class BaseModel:
         if kwargs:
             del kwargs["__class__"]
             for keys, value in kwargs.items():
-                if "created_at" in keys or "updated_at" in keys:
+                if keys == "updated_at" or keys == "created_at":
                     # convert its value (previously a str) to datetime object
                     dt_time = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
                     setattr(self, keys, dt_time)
                 else:
                     setattr(self, keys, value)
         else:
-            self.id = "{}".format(uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = datetime.now()
-            storage.new(self)
+            self.id = str(uuid4())
+            self.created_at = self.updated_at = datetime.now()
+            models.storage.new(self)
 
     def save(self):
         """
@@ -38,7 +37,7 @@ class BaseModel:
         current datetime or the current time and date
         """
         self.updated_at = datetime.now()  # when it was last updated
-        storage.save()
+        models.storage.save()
 
     def to_dict(self):
         """
@@ -49,7 +48,7 @@ class BaseModel:
         my_dict["__class__"] = self.__class__.__name__
         # iterate, extract & convert datetime values to a str in ISO format
         for key, value in self.__dict__.items():
-            if isinstance(value, datetime):
+            if key in ("created_at", "updated_at"):
                 my_dict[key] = value.isoformat()
             else:
                 my_dict[key] = value
