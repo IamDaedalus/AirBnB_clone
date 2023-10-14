@@ -58,6 +58,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             cmds = args.split(" ")
             cls_name = self.extract_arg(cmds[0])
+            # moved cls_id below the else statement
 
             # id arg check
             if len(cmds) < 2:
@@ -122,8 +123,9 @@ class HBNBCommand(cmd.Cmd):
             print(self.missing_class)
         else:
             flags = args.split(" ")
-            update_key = "{}.{}".format(self.extract_arg(args[0]),\
-                    self.extract_arg(args[1]))
+            update_key = "{}.{}".format(self.extract_arg(flags[0]),\
+                    self.extract_arg(flags[1]))
+            print(update_key)
 
             #id check
             if len(flags) < 2:
