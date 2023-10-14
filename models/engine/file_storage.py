@@ -79,10 +79,12 @@ class FileStorage:
 
         If the file doesn't exist, no errors or exceptions are raised
         """
-        if os.path.exists(FileStorage.__file_path):
-            with open(FileStorage.__file_path, "r") as file:
+        try:
+            with open(FileStorage.__file_path, "r", encoding="utf-8") as file:
                 data = json.load(file)
                 for objs in data.values():
                     cls_key = objs["__class__"]
                     cls_name = self.class_map()[cls_key]
                     self.new(cls_name(**objs))
+        except FileNotFoundError:
+            pass
