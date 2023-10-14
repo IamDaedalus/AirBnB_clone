@@ -44,12 +44,10 @@ class FileStorage:
         Write the new object to the file that stores all the dictionary
         entries as a way to save items and persistency
         """
-        # FIX:  Noticed you were doing the conversion here in save so I
-        #       my code to reflect that. Interesting approach there (y)
         my_dict = {}
         with open(FileStorage.__file_path, "w", encoding="utf8") as file:
-            for key, _ in FileStorage.__objects.items():
-                my_dict[key] = FileStorage.__objects[key].to_dict()
+            for key, value in FileStorage.__objects.items():
+                my_dict[key] = value.to_dict()
             json.dump(my_dict, file)
 
     def class_map(self):
@@ -57,9 +55,11 @@ class FileStorage:
         Returns a dictionary that contains a map of class names and
         their respective classes
         """
+        from models.user import User
         from models.base_model import BaseModel
 
         cls_map = {
+                "User": User,
                 "BaseModel": BaseModel
         }
 
