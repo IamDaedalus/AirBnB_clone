@@ -13,4 +13,4 @@ class City(BaseModel):
         name (str): Empty string by default, representing the city's name.
     """
     state_id = ""
-    name = "
+    name = ""
