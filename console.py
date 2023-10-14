@@ -63,7 +63,7 @@ class HBNBCommand(cmd.Cmd):
             # id arg check
             if len(cmds) < 2:
                 print(self.missing_id)
-            elif not cls_name in storage.class_map():
+            elif cls_name not in storage.class_map():
                 print(self.unknown_class)
             else:
                 cls_id = self.extract_arg(cmds[1])
@@ -86,7 +86,7 @@ class HBNBCommand(cmd.Cmd):
             # id arg check
             if len(cmds) < 2:
                 print(self.missing_id)
-            elif not cls_name in storage.class_map():
+            elif cls_name not in storage.class_map():
                 print(self.unknown_class)
             else:
                 val = "{}.{}".format(cls_name, cls_id)
@@ -123,23 +123,18 @@ class HBNBCommand(cmd.Cmd):
             print(self.missing_class)
         else:
             flags = args.split(" ")
-            update_key = "{}.{}".format(self.extract_arg(flags[0]),\
-                    self.extract_arg(flags[1]))
+            update_key = "{}.{}".format(self.extract_arg(flags[0]),
+                                        self.extract_arg(flags[1]))
             print(update_key)
 
-            #id check
             if len(flags) < 2:
                 print(self.missing_id)
-            # wrong instance id check
             elif update_key not in storage.all():
                 print(self.unknown_id)
-            # attribute check
             elif len(flags) < 3:
                 print(self.missing_attr)
-            # attrribute value check
             elif len(flags) < 4:
                 print(self.missing_val)
-            # class name validation check
             elif flags[0] not in storage.class_map():
                 print(self.unknown_class)
 
