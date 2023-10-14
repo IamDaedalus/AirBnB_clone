@@ -58,7 +58,6 @@ class HBNBCommand(cmd.Cmd):
         else:
             cmds = args.split(" ")
             cls_name = self.extract_arg(cmds[0])
-            cls_id = self.extract_arg(cmds[1])
 
             # id arg check
             if len(cmds) < 2:
@@ -66,6 +65,7 @@ class HBNBCommand(cmd.Cmd):
             elif not cls_name in storage.class_map():
                 print(self.unknown_class)
             else:
+                cls_id = self.extract_arg(cmds[1])
                 val = "{}.{}".format(cls_name, cls_id)
 
                 if val in storage.all():
@@ -117,18 +117,20 @@ class HBNBCommand(cmd.Cmd):
                         my_list.append(str(values))
                 print(my_list)
 
-
     def do_update(self, args):
         if args == "" or args is None:
             print(self.missing_class)
         else:
             flags = args.split(" ")
-            cls_id = "{}.{}".format(self.extract_arg(args[0]),\
+            update_key = "{}.{}".format(self.extract_arg(args[0]),\
                     self.extract_arg(args[1]))
 
             #id check
-            if len(flags) < 2 or cls_id not in storage.all():
+            if len(flags) < 2:
                 print(self.missing_id)
+            # wrong instance id check
+            elif update_key not in storage.all():
+                print(self.unknown_id)
             # attribute check
             elif len(flags) < 3:
                 print(self.missing_attr)
@@ -139,8 +141,10 @@ class HBNBCommand(cmd.Cmd):
             elif flags[0] not in storage.class_map():
                 print(self.unknown_class)
 
-
-
+            for key, _ in storage.all().items():
+                if update_key == key:
+                    setattr(storage.all()[key], flags[2], flags[3])
+                    storage.all()[key].save()
 
     # HELPERS
     def extract_arg(self, arg="", msg=""):

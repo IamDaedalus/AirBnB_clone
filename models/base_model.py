@@ -79,5 +79,5 @@ class BaseModel:
         attributes. Helpful for debugging and such
         """
         return "[{}] ({}) {}".format(
-            type(self).__name__, self.id, self.to_dict()
+            type(self).__name__, self.id, self.__dict__
             )
