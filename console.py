@@ -97,12 +97,13 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, args):
         """ Prints all stored args otherwise prints passed class name"""
-        my_list = []
         if args == "":
             # default behaviour to print everything in the file.json
             # if no args are passed
+            my_list = []
             for _, values in storage.all().items():
                 my_list.append(str(values))
+                print(my_list)
         else:
             cmd = self.extract_arg(args.split(" ")[0])
 
@@ -114,8 +115,8 @@ class HBNBCommand(cmd.Cmd):
                 for _, values in storage.all().items():
                     if type(values).__name__ == cmd:
                         my_list.append(str(values))
+                print(my_list)
 
-        print(my_list)
 
     def do_update(self, args):
         if args == "" or args is None:
