@@ -1,10 +1,8 @@
 #!/usr/bin/python3
-
 """
 Module that contains class for storage and persistence between
 sessions which is vital for an application such as this
 """
-
 import json
 import os
 
@@ -31,7 +29,6 @@ class FileStorage:
         """
         Create a new dictionary that will most likely be added to the
         __objects dictionary as a whole.
-
         Args:
             obj: the new obj to add which will be converted to a
                 dictionary
@@ -56,13 +53,22 @@ class FileStorage:
         their respective classes
         """
         from models.user import User
+        from models.city import City
+        from models.place import Place
+        from models.state import State
+        from models.review import Review
+        from models.amenity import Amenity
         from models.base_model import BaseModel
 
         cls_map = {
-                "User": User,
-                "BaseModel": BaseModel
-        }
 
+                "User": User, "City": City,
+                "Place": Place,
+                "BaseModel": BaseModel,
+                "State": State,
+                "Review": Review,
+                "Amenity": Amenity
+        }
         return cls_map
 
     def reload(self):
