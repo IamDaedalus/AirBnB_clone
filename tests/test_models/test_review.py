@@ -8,6 +8,7 @@ class TestReviewAttributes(unittest.TestCase):
      Defines a Test case class for the Review attributes in the
      models.review module.
     """
+
     def test_place_id(self):
         """
         Test if the place_id attribute of Review is a string
@@ -17,9 +18,8 @@ class TestReviewAttributes(unittest.TestCase):
         self.assertEqual(Review.place_id, "")
 
     def test_user_id(self):
-        """
-        validate user_id attribute of Review is a string and has the
-        default value of an empty string.
+        """ validate user_id attribute of Review is a string and
+        has the default value of an empty string.
         """
         self.assertIsInstance(Review.user_id, str)
 
@@ -29,25 +29,22 @@ class TestReviewAttributes(unittest.TestCase):
         self.assertEqual(Review.user_id, "")
 
     def test_text(self):
-        """
-        Test that text'attribute of Review is a string and has the default
-        value of an empty string.
+        """ Test that text'attribute of Review is a string and has
+        the default value of an empty string.
         """
         self.assertIsInstance(Review.text, str)
         self.assertEqual(Review.text, "")
 
     def test_user_id_assignment(self):
-        """
-        Test if assigning a value to user_id attribute of Review
-        updates the attribute correctly.
+        """ Test if assigning a value to user_id attribute of
+        Review updates the attribute correctly.
         """
         review = Review()
         review.user_id = "Manny.Daedlus"
         self.assertEqual(review.user_id, "Manny.Daedlus")
 
     def test_text_assignment(self):
-        """
-        Test if assigning a value to text attribute of Review
+        """ Test if assigning a value to text attribute of Review
         updates the attribute correctly.
         """
         review = Review()
