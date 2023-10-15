@@ -40,8 +40,8 @@ class TestUserClass(unittest.TestCase):
         self.assertEqual(self.user.password, "helloworld12345")
 
     def test_inherited_attributes(self):
-        """ Confirm that all the required attributes were imported
-        from BaseModel, also confirm that User's attributes are present
+        """ Validate that all supperclass default attributes were
+        inherited
         """
         self.assertTrue('id' in self.user.__dict__)
         self.assertTrue('created_at' in self.user.__dict__)
