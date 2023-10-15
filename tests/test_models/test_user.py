@@ -15,8 +15,7 @@ class TestUserClass(unittest.TestCase):
         userId = self.user.id
 
     def test_user_first_name(self):
-        """
-        Test setting and getting the 'first_name' attribute of User.
+        """ Test setting and getting the first_name attribute of User.
         """
         self.user.first_name = "Jack"
         self.assertEqual(self.user.first_name, "Jack")
@@ -41,10 +40,9 @@ class TestUserClass(unittest.TestCase):
         self.assertEqual(self.user.password, "helloworld12345")
 
     def test_inherited_attributes(self):
-        '''
-        Confirm that all the required attributes were imported from BaseModel
-        Also confirm that User's attributes are present
-        '''
+        """ Confirm that all the required attributes were imported
+        from BaseModel, also confirm that User's attributes are present
+        """
         self.assertTrue('id' in self.user.__dict__)
         self.assertTrue('created_at' in self.user.__dict__)
         self.assertTrue('updated_at' in self.user.__dict__)
