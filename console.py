@@ -158,9 +158,6 @@ class HBNBCommand(cmd.Cmd):
         """
         # extract the text between string quotes
         # now to match the braces for a correct formatted str
-        # IF WE GET A LOT OF RED CHECKS FOR TASK 7 CONSIDER
-        # REMOVING CALLS TO THIS FUNCTION AND JUST PASSING
-        # THEM STRAIGHT AWAY
         if '"' in arg or '\'' in arg:
             return arg[1:-1]
         else:
